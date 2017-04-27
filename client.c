@@ -6,7 +6,10 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netdb.h> 
-
+###
+# modded 04/27/17 to add date and author
+# Gary B. Corell
+######
 void error(const char *msg)
 {
     perror(msg);
