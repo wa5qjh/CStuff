@@ -1,0 +1,62 @@
+
+Well, that *.cpp file is only the first (major) piece of the Qt puzzle. 
+The other file you need to create is a Qt project file (*.pro). This 
+project file tells Qt (via qmake) which files to compile, which 
+libraries/resources to include, etc. I have included a sample project 
+file below, but once you have that, the basic method for 
+compiling/running is this:
+1) Run qmake on the project file (to auto-generate a Makefile for your app)
+[code] /usr/local/lib/qt5/bin/qmake *.pro [/code]
+2) Compile the program
+[code] make [/code]
+3) Run the program locally
+[code] ./HelloQt [/code]
+4) If it works fine, then you can install it onto the system (optional)
+[code] sudo make install [/code]
+
+NOTE: Whenever you make a change to the project file (such as 
+adding/removing new source files), you will need to re-run qmake on it 
+to update the Makefile (otherwise you can end up with interesting linker 
+errors from using a stale makefile).
+A) Clean up your working directory (removes temporary build files only)
+[code] make clean [/code]
+B) Completely clean up your working directory (removes temporary build 
+files *and* Makefiles)
+[code] make distclean [/code]
+
+NOTE2: You might want to rename your "HelloQt.cpp" file to "main.cpp" 
+and adjust the source list below, since "main.cpp" is the standard 
+filename for the first/only source file in C++....   :-)
+
+For example:
+[file HelloQt.pro]
+#First setup the Qt modules your program uses/needs
+QT += core gui
+greaterThan(QT_MAJOR_VERSION, 4) QT += widgets
+
+#Now setup the name/installdir of the binary to create
+TARGET = HelloQt
+target.path = /usr/local/bin
+
+#Use a generic Qt template for an application
+TEMPLATE = app
+
+#Now list all the source files
+SOURCES += main.cpp HelloQt.cpp
+HEADERS +=
+FORMS +=
+RESOURCES +=
+
+#Setup additional system include paths and libraries
+INCLUDEPATH +=
+LIBS +=
+
+#Now what to do when installing the file (make install)
+INSTALLS += target
+
+[/file]
+
+~~ Ken Moore ~~
+PC-BSD/iXsystems
+
+
